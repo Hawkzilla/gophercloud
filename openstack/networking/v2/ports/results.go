@@ -122,6 +122,13 @@ type Port struct {
 
 	// Timestamp when the port was last updated
 	UpdatedAt time.Time `json:"updated_at"`
+
+	BindingProfile BindingProfile `json:"binding:profile"`
+}
+
+type BindingProfile struct {
+	ParentName string `json:"parent_name"`
+	Tag        int    `json:"tag"`
 }
 
 func (r *Port) UnmarshalJSON(b []byte) error {
