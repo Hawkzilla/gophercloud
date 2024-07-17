@@ -2,6 +2,8 @@ package ports
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/trunk_details"
 	"time"
 
 	"github.com/gophercloud/gophercloud/v2"
@@ -122,6 +124,9 @@ type Port struct {
 
 	// Timestamp when the port was last updated
 	UpdatedAt time.Time `json:"updated_at"`
+
+	// TrunkDetails contains additional trunking information returned in a ports query.
+	TrunkDetails trunk_details.TrunkDetails `json:"trunk_details"`
 
 	BindingProfile BindingProfile `json:"binding:profile"`
 }
