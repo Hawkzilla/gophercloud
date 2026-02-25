@@ -641,7 +641,7 @@ func defaultOkCodes(method string) []int {
 	case "POST":
 		return []int{201, 202}
 	case "PUT":
-		return []int{201, 202}
+		return []int{200, 201, 202}
 	case "PATCH":
 		return []int{200, 202, 204}
 	case "DELETE":
