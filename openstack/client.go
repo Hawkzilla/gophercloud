@@ -402,6 +402,14 @@ func NewNetworkV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpt
 	return sc, err
 }
 
+// NewContainerNetworkV2 creates a ServiceClient that may be used with the v2 container_network
+// package.
+func NewContainerNetworkV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*gophercloud.ServiceClient, error) {
+	sc, err := initClientOpts(client, eo, "container-network", 2)
+	sc.ResourceBase = sc.Endpoint + "v2.0/"
+	return sc, err
+}
+
 // TODO(stephenfin): Remove this in v3. We no longer support the V1 Block Storage service.
 // NewBlockStorageV1 creates a ServiceClient that may be used to access the v1
 // block storage service.

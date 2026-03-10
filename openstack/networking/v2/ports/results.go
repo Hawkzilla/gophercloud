@@ -1,12 +1,13 @@
 package ports
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/trunk_details"
 	"time"
 
 	"github.com/gophercloud/gophercloud/v2"
+	"github.com/gophercloud/gophercloud/v2/openstack/networking/v2/extensions/trunk_details"
 	"github.com/gophercloud/gophercloud/v2/pagination"
 )
 
@@ -219,7 +220,7 @@ func ExtractPortsInto(r pagination.Page, v any) error {
 
 // AddAllowedAddressPair accepts a UpdateOpts struct and updates an existing port using the
 // values provided.
-func AddAllowedAddressPair(c *gophercloud.ServiceClient, id string, opts UpdateOptsBuilder) (r UpdateResult) {
+func AddAllowedAddressPair(ctx context.Context, c *gophercloud.ServiceClient, id string, opts UpdateOptsBuilder) (r UpdateResult) {
 	b, err := opts.ToPortUpdateMap()
 	if err != nil {
 		r.Err = err
@@ -235,7 +236,7 @@ func AddAllowedAddressPair(c *gophercloud.ServiceClient, id string, opts UpdateO
 			h[k] = fmt.Sprintf("revision_number=%s", h[k])
 		}
 	}
-	resp, err := c.Put(addAllowedAddressPairURL(c, id), b, &r.Body, &gophercloud.RequestOpts{
+	resp, err := c.Put(ctx, addAllowedAddressPairURL(c, id), b, &r.Body, &gophercloud.RequestOpts{
 		MoreHeaders: h,
 		OkCodes:     []int{200, 201},
 	})
@@ -245,7 +246,7 @@ func AddAllowedAddressPair(c *gophercloud.ServiceClient, id string, opts UpdateO
 
 // RemoveAllowedAddressPair accepts a UpdateOpts struct and updates an existing port using the
 // values provided.
-func RemoveAllowedAddressPair(c *gophercloud.ServiceClient, id string, opts UpdateOptsBuilder) (r UpdateResult) {
+func RemoveAllowedAddressPair(ctx context.Context, c *gophercloud.ServiceClient, id string, opts UpdateOptsBuilder) (r UpdateResult) {
 	b, err := opts.ToPortUpdateMap()
 	if err != nil {
 		r.Err = err
@@ -261,7 +262,7 @@ func RemoveAllowedAddressPair(c *gophercloud.ServiceClient, id string, opts Upda
 			h[k] = fmt.Sprintf("revision_number=%s", h[k])
 		}
 	}
-	resp, err := c.Put(removeAllowedAddressPairURL(c, id), b, &r.Body, &gophercloud.RequestOpts{
+	resp, err := c.Put(ctx, removeAllowedAddressPairURL(c, id), b, &r.Body, &gophercloud.RequestOpts{
 		MoreHeaders: h,
 		OkCodes:     []int{200, 201},
 	})
